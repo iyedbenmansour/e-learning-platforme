@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { Link } from 'react-router-dom';
+import { Link  , useNavigate} from 'react-router-dom';
 import NavBar from '../components/Navbar';
 
 const Profile = () => {
@@ -11,6 +11,19 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('enrolled');
+  const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("authToken");
+    if (!token) {
+      sessionStorage.removeItem("token");
+      navigate("/first");
+    } else {
+    }
+  }, []);
+
 
   useEffect(() => {
     const fetchUserAndCourses = async () => {

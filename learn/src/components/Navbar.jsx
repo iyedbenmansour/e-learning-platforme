@@ -58,7 +58,7 @@ const NavBar = () => {
         <div className="flex items-center justify-between py-4">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
-            <span className={`text-xl font-bold ${textColor}`}>Skillcraft</span>
+            <span className={`text-xl font-bold ${textColor}`}>EduVista</span>
           </Link>
           <ul className="hidden md:flex space-x-8">
             {navItems.map((item) => (

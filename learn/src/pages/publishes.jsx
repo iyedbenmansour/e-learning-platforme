@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaFile, FaVideo } from 'react-icons/fa';
 import NavBar from '../components/Navbar';
-import { useLocation } from 'react-router-dom';
+import { useLocation , useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const PublishLessonsPage = () => {
@@ -11,6 +11,18 @@ const PublishLessonsPage = () => {
   const [chapterNumber, setChapterNumber] = useState('');
   const [file, setFile] = useState(null);
   const [video, setVideo] = useState(null);
+  const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("authToken");
+    if (!token) {
+      sessionStorage.removeItem("token");
+      navigate("/first");
+    } else {
+    }
+  }, []);
 
   // Get courseId from the URL query parameter
   const location = useLocation();
@@ -25,7 +37,7 @@ const PublishLessonsPage = () => {
     formData.append('name', name);
     formData.append('description', description);
     formData.append('chapterNumber', chapterNumber);
-    formData.append('courseId', courseId);  // Add the courseId to the form data
+    formData.append('courseId', courseId);  
     if (file) formData.append('file', file);
     if (video) formData.append('video', video);
 

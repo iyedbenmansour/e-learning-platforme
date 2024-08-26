@@ -18,7 +18,18 @@ const Cour = () => {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("authToken");
+    if (!token) {
+      sessionStorage.removeItem("token");
+      navigate("/first");
+    } else {
+    }
+  }, []);
 
   useEffect(() => {
     // Fetch courses from API

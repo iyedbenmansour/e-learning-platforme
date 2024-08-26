@@ -7,24 +7,15 @@ import {
   FaChalkboardTeacher,
   FaTools,
   FaGlobe,
-  FaRocket,
-  FaLightbulb,
+
   FaLaptop,
   FaBook,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-  FaFacebookF,
-  FaChartLine,
-  FaStar,
+
   FaGraduationCap,
   FaCertificate,
   FaCode,
   FaPalette,
-  FaCamera,
-  FaMusic,
-  FaChartBar,
-  FaHeadset,
+  FaStar,
 } from "react-icons/fa";
 
 import NavBar from "../components/Navbar";

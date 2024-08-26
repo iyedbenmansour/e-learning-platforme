@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate } from 'react-router-dom';
 import NavBar from '../components/Navbar';
-import { jwtDecode } from 'jwt-decode'; // Correctly import jwt-decode
+import { jwtDecode } from 'jwt-decode'; 
 
 const Lessons = () => {
-  const { id } = useParams(); // Extract the course ID from the URL parameters
+  const { id } = useParams(); 
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [enrolled, setEnrolled] = useState(false); // Track enrollment status
-  const [userId, setUserId] = useState(null); // State to store user ID
+  const [enrolled, setEnrolled] = useState(false); 
+  const [userId, setUserId] = useState(null); 
+
+  const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("authToken");
+    if (!token) {
+      sessionStorage.removeItem("token");
+      navigate("/first");
+    } else {
+    }
+  }, []);
 
   // Decode user ID from auth token
   useEffect(() => {
@@ -19,7 +32,7 @@ const Lessons = () => {
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
-          setUserId(decodedToken.id); // Extract user ID from decoded token
+          setUserId(decodedToken.id); 
         } catch (err) {
           setError('Error decoding token');
         }
@@ -49,10 +62,9 @@ const Lessons = () => {
     if (userId) {
       const checkEnrollment = async () => {
         try {
-          console.log(`Checking enrollment for course ${id} and user ${userId}`); // Debug log
           const response = await axios.get(`http://localhost:5000/enrolled/${id}/${userId}`);
           
-          console.log('Enrollment Status Response:', response.data); // Debug log
+          console.log('Enrollment Status Response:', response.data); 
           
           // Check if the response has the expected data
           if (response.data && response.data.enrolled !== undefined) {
@@ -70,7 +82,7 @@ const Lessons = () => {
             console.error('Unexpected response format:', response.data);
           }
         } catch (err) {
-          console.error('Error checking enrollment status:', err); // Debug log
+          console.error('Error checking enrollment status:', err); 
           setError('Error checking enrollment status');
         }
       };

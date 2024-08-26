@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link , useNavigate} from 'react-router-dom';
 import NavBar from '../components/Navbar';
 
 const CourseDetails = () => {
@@ -8,6 +8,19 @@ const CourseDetails = () => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("authToken");
+    if (!token) {
+      sessionStorage.removeItem("token");
+      navigate("/first");
+    } else {
+    }
+  }, []);
 
   useEffect(() => {
     const fetchLessons = async () => {
