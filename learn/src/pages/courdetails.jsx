@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, Link , useNavigate} from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 
 const CourseDetails = () => {
-  const { id } = useParams(); // Extract the course ID from the URL parameters
+  const { id } = useParams();
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
     if (!token) {
-      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("authToken");
       navigate("/first");
-    } else {
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/${id}/lessons`);
+        const response = await axios.get(`http://localhost:5000/api/lessons/${id}/lessons`);
         setLessons(response.data);
       } catch (err) {
         setError('Error fetching lessons');
@@ -48,7 +45,7 @@ const CourseDetails = () => {
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Lessons</h2>
             <Link
-              to={`/publishes?courseId=${id}`}  // Pass the course ID to the publish page
+              to={`/publishes?courseId=${id}`}
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
             >
               Add Lesson
@@ -64,7 +61,7 @@ const CourseDetails = () => {
                   {lesson.file && (
                     <div className="flex items-center mb-2">
                       <a
-                        href={`http://localhost:5000/file/view/${lesson._id}`}
+                        href={`http://localhost:5000/api/files/view/${lesson._id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
@@ -72,7 +69,7 @@ const CourseDetails = () => {
                         View File
                       </a>
                       <a
-                        href={`http://localhost:5000/file/download/${lesson._id}`}
+                        href={`http://localhost:5000/api/files/download/${lesson._id}`}
                         className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
                       >
                         Download File
@@ -82,7 +79,7 @@ const CourseDetails = () => {
                   {lesson.video && (
                     <div className="flex items-center mb-2">
                       <a
-                        href={`http://localhost:5000/video/view/${lesson._id}`}
+                        href={`http://localhost:5000/api/videos/view/${lesson._id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
@@ -90,7 +87,7 @@ const CourseDetails = () => {
                         View Video
                       </a>
                       <a
-                        href={`http://localhost:5000/video/download/${lesson._id}`}
+                        href={`http://localhost:5000/api/videos/download/${lesson._id}`}
                         className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
                       >
                         Download Video

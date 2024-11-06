@@ -40,7 +40,7 @@ const RegisterPage = () => {
     if (profilePicture) formDataToSend.append('profilePicture', profilePicture);
 
     try {
-      const response = await axios.post('http://localhost:5000/register', formDataToSend, {
+      const response = await axios.post('http://localhost:5000/user/register', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

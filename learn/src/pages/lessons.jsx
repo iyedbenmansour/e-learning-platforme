@@ -1,38 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams , useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import NavBar from '../components/Navbar';
-import { jwtDecode } from 'jwt-decode'; 
+import {jwtDecode} from 'jwt-decode';
 
 const Lessons = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [enrolled, setEnrolled] = useState(false); 
-  const [userId, setUserId] = useState(null); 
+  const [enrolled, setEnrolled] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
     if (!token) {
-      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("authToken");
       navigate("/first");
-    } else {
     }
-  }, []);
+  }, [navigate]);
 
-  // Decode user ID from auth token
   useEffect(() => {
     const fetchUserIdFromToken = () => {
       const token = sessionStorage.getItem('authToken');
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
-          setUserId(decodedToken.id); 
+          setUserId(decodedToken.id);
         } catch (err) {
           setError('Error decoding token');
         }
@@ -43,11 +39,10 @@ const Lessons = () => {
     fetchUserIdFromToken();
   }, []);
 
-  // Fetch lessons
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/${id}/lessons`);
+        const response = await axios.get(`http://localhost:5000/api/lessons/${id}/lessons`);
         setLessons(response.data);
       } catch (err) {
         setError('Error fetching lessons');
@@ -62,27 +57,14 @@ const Lessons = () => {
     if (userId) {
       const checkEnrollment = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/enrolled/${id}/${userId}`);
-          
-          console.log('Enrollment Status Response:', response.data); 
-          
-          // Check if the response has the expected data
+          const response = await axios.get(`http://localhost:5000/api/enrollments/enrolled/${id}/${userId}`);
           if (response.data && response.data.enrolled !== undefined) {
-            const enrolledStatus = response.data.enrolled;
-            
-            // Update state based on enrollment status
-            setEnrolled(enrolledStatus);
-  
-            if (enrolledStatus) {
-              console.log(`User ${userId} is enrolled in course ${id}`);
-            } else {
-              console.log(`User ${userId} is not enrolled in course ${id}`);
-            }
+            setEnrolled(response.data.enrolled);
           } else {
             console.error('Unexpected response format:', response.data);
           }
         } catch (err) {
-          console.error('Error checking enrollment status:', err); 
+          console.error('Error checking enrollment status:', err);
           setError('Error checking enrollment status');
         }
       };
@@ -90,9 +72,7 @@ const Lessons = () => {
     }
   }, [id, userId]);
 
-  // Handle enroll action
   const handleEnroll = async () => {
-    console.log(`Enrolling user ${userId} in course ${id}`);
     try {
       await axios.post(`http://localhost:5000/api/enrollments/enroll/${id}`, { userId });
       setEnrolled(true);
@@ -136,25 +116,20 @@ const Lessons = () => {
                         {lesson.file && (
                           <>
                             <a
-                              href={`http://localhost:5000/file/${lesson._id}`}
+                              href={`http://localhost:5000/api/lessons/file/${lesson._id}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
                             >
                               View File
                             </a>
-                            <a
-                              href={`http://localhost:5000/file/download/${lesson._id}`}
-                              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
-                            >
-                              Download File
-                            </a>
+                           
                           </>
                         )}
                         {lesson.video && (
                           <>
                             <a
-                              href={`http://localhost:5000/video/${lesson._id}`}
+                              href={`http://localhost:5000/api/videos/${lesson._id}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
@@ -162,7 +137,7 @@ const Lessons = () => {
                               View Video
                             </a>
                             <a
-                              href={`http://localhost:5000/video/download/${lesson._id}`}
+                              href={`http://localhost:5000/api/videos/download/${lesson._id}`}
                               className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
                             >
                               Download Video

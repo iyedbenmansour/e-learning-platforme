@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { Link  , useNavigate} from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 
 const Profile = () => {
@@ -13,17 +13,13 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState('enrolled');
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
     if (!token) {
-      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("authToken");
       navigate("/first");
-    } else {
     }
-  }, []);
-
+  }, [navigate]);
 
   useEffect(() => {
     const fetchUserAndCourses = async () => {
@@ -38,14 +34,14 @@ const Profile = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.id;
 
-        const userResponse = await axios.get(`http://localhost:5000/users/${userId}`);
+        const userResponse = await axios.get(`http://localhost:5000/api/users/${userId}`);
         setUser(userResponse.data);
 
-        const coursesResponse = await axios.get(`http://localhost:5000/courses`);
+        const coursesResponse = await axios.get(`http://localhost:5000/api/courses`);
         const userCourses = coursesResponse.data.filter(course => course.userId === userId);
         setCreatedCourses(userCourses);
 
-        const enrolledCoursesResponse = await axios.get(`http://localhost:5000/enrolled-courses/${userId}`);
+        const enrolledCoursesResponse = await axios.get(`http://localhost:5000/api/enrollments/enrolled-courses/${userId}`);
         setEnrolledCourses(enrolledCoursesResponse.data);
 
       } catch (err) {
@@ -65,7 +61,7 @@ const Profile = () => {
       <Link to={linkTo}>
         <div className="relative h-48">
           <img
-            src={`http://localhost:5000/courses/${course._id}/banner`}
+            src={`http://localhost:5000/api/courses/${course._id}/banner`}
             alt={course.title}
             className="w-full h-full object-cover"
             onError={(e) => {
@@ -104,7 +100,7 @@ const Profile = () => {
                 <div className="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center overflow-hidden mb-4 md:mb-0 md:mr-8 ring-4 ring-white shadow-lg transform hover:scale-105 transition duration-300">
                   {user.profilePicture ? (
                     <img
-                      src={`http://localhost:5000/users/${user._id}/profile-picture`}
+                      src={`http://localhost:5000/api/users/${user._id}/profile-picture`}
                       alt="Profile"
                       className="w-full h-full object-cover rounded-full"
                       onError={(e) => {

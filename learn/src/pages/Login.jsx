@@ -26,7 +26,7 @@ const LoginPage = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/login', { email, password });
+      const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
       const { token } = response.data;
 
       // Save token to localStorage or sessionStorage
