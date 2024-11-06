@@ -1,7 +1,8 @@
-const mongoose=require("mongoose")
+const mongoose = require("mongoose");
 
-const db=process.env.db
+// MongoDB Atlas connection string (replace <db_password> with the actual password)
+const mongoURI = `mongodb+srv://learn:Aeakmi123@learn.bv6p0.mongodb.net/learn?retryWrites=true&w=majority&appName=learn`;
 
-mongoose.connect(`mongodb://localhost:27017/${db}`)
-.then(()=>console.log(`connected to ${db} db`))
-.catch(err=>console.log(err))
+mongoose.connect(mongoURI)
+  .then(() => console.log("Connected to learn database on MongoDB Atlas"))
+  .catch((err) => console.log("Error connecting to MongoDB Atlas:", err));
