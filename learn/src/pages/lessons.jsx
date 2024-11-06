@@ -42,7 +42,7 @@ const Lessons = () => {
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/lessons/${id}/lessons`);
+        const response = await axios.get(`https://e-learning-platforme.onrender.com/api/lessons/${id}/lessons`);
         setLessons(response.data);
       } catch (err) {
         setError('Error fetching lessons');
@@ -57,7 +57,7 @@ const Lessons = () => {
     if (userId) {
       const checkEnrollment = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/enrollments/enrolled/${id}/${userId}`);
+          const response = await axios.get(`https://e-learning-platforme.onrender.com/api/enrollments/enrolled/${id}/${userId}`);
           if (response.data && response.data.enrolled !== undefined) {
             setEnrolled(response.data.enrolled);
           } else {
@@ -74,7 +74,7 @@ const Lessons = () => {
 
   const handleEnroll = async () => {
     try {
-      await axios.post(`http://localhost:5000/api/enrollments/enroll/${id}`, { userId });
+      await axios.post(`https://e-learning-platforme.onrender.com/api/enrollments/enroll/${id}`, { userId });
       setEnrolled(true);
     } catch (err) {
       setError('Error enrolling in the course');
@@ -116,7 +116,7 @@ const Lessons = () => {
                         {lesson.file && (
                           <>
                             <a
-                              href={`http://localhost:5000/api/lessons/file/${lesson._id}`}
+                              href={`https://e-learning-platforme.onrender.com/api/lessons/file/${lesson._id}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
@@ -129,7 +129,7 @@ const Lessons = () => {
                         {lesson.video && (
                           <>
                             <a
-                              href={`http://localhost:5000/api/videos/${lesson._id}`}
+                              href={`https://e-learning-platforme.onrender.com/api/videos/${lesson._id}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
@@ -137,7 +137,7 @@ const Lessons = () => {
                               View Video
                             </a>
                             <a
-                              href={`http://localhost:5000/api/videos/download/${lesson._id}`}
+                              href={`https://e-learning-platforme.onrender.com/api/videos/download/${lesson._id}`}
                               className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
                             >
                               Download Video

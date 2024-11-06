@@ -40,7 +40,7 @@ const RegisterPage = () => {
     if (profilePicture) formDataToSend.append('profilePicture', profilePicture);
 
     try {
-      const response = await axios.post('http://localhost:5000/user/register', formDataToSend, {
+      const response = await axios.post('https://e-learning-platforme.onrender.com/user/register', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

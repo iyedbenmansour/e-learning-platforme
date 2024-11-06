@@ -43,7 +43,7 @@ const PublishLessonsPage = () => {
 
     try {
       // Make a POST request to save the lesson
-      const response = await axios.post(`http://localhost:5000/api/lessons/${courseId}/lessons`, formData, {
+      const response = await axios.post(`https://e-learning-platforme.onrender.com/api/lessons/${courseId}/lessons`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

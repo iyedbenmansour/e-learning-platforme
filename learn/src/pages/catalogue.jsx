@@ -35,7 +35,7 @@ const Cour = () => {
     // Fetch courses from API
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/courses/');
+        const response = await axios.get('https://e-learning-platforme.onrender.com/api/courses/');
         setCourses(response.data);
         setFilteredCourses(response.data);
       } catch (error) {
@@ -105,7 +105,7 @@ const Cour = () => {
                 onClick={() => handleCourseClick(course._id)}
               >
                 <img 
-                  src={`http://localhost:5000/api/courses/${course._id}/banner`} 
+                  src={`https://e-learning-platforme.onrender.com/api/courses/${course._id}/banner`} 
                   alt={course.name} 
                   className="w-full h-40 object-cover" 
                 />

@@ -50,7 +50,7 @@ const PublishPage = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/courses/upload', formData, {
+      await axios.post('https://e-learning-platforme.onrender.com/api/courses/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Course published successfully!');
