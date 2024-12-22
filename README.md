@@ -16,7 +16,7 @@ Tech Stack:
 - Backend: Node.js, Express.js
 - Database: MongoDB
 - Authentication: JSON Web Tokens (JWT), Passport.js
-- Hosting: Backend on Railway, Frontend on Vercel
+- Hosting: Backend on Render, Frontend on Vercel
 
 Installation Instructions:
 
@@ -50,8 +50,12 @@ Installation Instructions:
    Your application should now be running locally!
 
 Screenshots:
-- Homepage: [Insert screenshot link here]
-- Course Page: [Insert screenshot link here]
+- Homepage:![image](https://github.com/user-attachments/assets/87949fc5-2cae-45a9-a31f-ac8af7413ccd)
+
+- Course Page: ![image](https://github.com/user-attachments/assets/4bf15cf9-f77c-4b19-9def-e6c2fce752a0) ![image](https://github.com/user-attachments/assets/2a6abd64-bbcc-49e1-8b99-bcbaa08569e8) ![image](https://github.com/user-attachments/assets/9f6aa067-3a47-44ba-b246-97775c9f7c34) 
+
+
+
 
 Contributing:
 We welcome contributions to improve the project! If you have bug fixes, suggestions, or new features, feel free to fork the repository and submit a pull request. If you encounter any issues, please open an issue in the GitHub repository.
